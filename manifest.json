@@ -1,0 +1,29 @@
+{
+    "name": "微博页宽调节器",
+    "description": "感觉宽屏浪费了？(专为扩展“微博急简”优化)",
+    "version": "1.0",
+    "manifest_version": 2,
+    "browser_action": {
+        "default_icon": "kuan.jpg",
+        "default_title": "微博页宽调节",
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "48": "kuan.jpg"
+    },
+    "permissions": [
+        "tabs", "http://weibo.com/*", "storage"
+
+    ],
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://weibo.com/*"],
+            "js": ["content.js"]
+        }
+    ]
+
+
+}

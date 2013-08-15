@@ -1,23 +1,57 @@
 //-----------------全局变量-------------------
-var w_main = document.getElementsByClassName("W_main")[0]
-var plc_main = document.getElementById("plc_main")
-var scrollToTop = document.getElementById('base_scrollToTop')
+var page= document.URL.substring(0, document.URL.indexOf("com") + 3)
+
+switch (page) {
+    case "http://www.renren.com":
+        sidebar2 = document.getElementById("sidebar2")
+        container = document.getElementById("container")
+        main2 = document.getElementById("main2")
+        globalPublisher = document.getElementById("global-publisher")
+        content = document.getElementById("content")
+        feedList = document.getElementsByClassName("feed-list")[0]
+        break
+    case "http://weibo.com":
+        w_main = document.getElementsByClassName("W_main")[0]
+        plc_main = document.getElementById("plc_main")
+        scrollToTop = document.getElementById('base_scrollToTop')
+        break
+    default :
+        console.log("这什么吊网站啊？")
+}
 
 //----------------functions----------------------
-function changeWidth(plc_width) {
-    var w_width = parseInt(plc_width) + 250,
-        scrollToTop_marginLeft = w_width / 2
-    w_main.setAttribute("style", "width:" + w_width + "px !important")
-    plc_main.setAttribute("style", "width:" + plc_width + "px !important")
-    scrollToTop.setAttribute("style", "margin-left:" + scrollToTop_marginLeft + "px !important")
+function changeWidth(width) {
+//    console.log("变"+width)
+    switch (page) {
+        case "http://www.renren.com":
+            sidebar2.style.float = "right"
+            container.style.width = parseInt(width) + 440 + "px"
+            main2.style.width =parseInt(width) + 260 + "px"
+            globalPublisher.style.width = parseInt(width) + 40+"px"
+            content.style.width = width + "px"
+            feedList.style.width = width + "px"
+            break
+        case "http://weibo.com":
+            var w_width = parseInt(width) + 250,
+                scrollToTop_marginLeft = w_width / 2
+            w_main.setAttribute("style", "width:" + w_width + "px !important")
+            plc_main.setAttribute("style", "width:" + width + "px !important")
+            scrollToTop.setAttribute("style", "margin-left:" + scrollToTop_marginLeft + "px !important")
+            break
+        default :
+            console.log("这什么吊网站啊？")
+    }
 }
+
 //----------------main----------------------
-chrome.runtime.sendMessage({message: "getWidth"}, function (response) {
-    changeWidth(response.width)
+console.log("宽度调节启动"+page)
+//向backgroud页查询
+chrome.runtime.sendMessage({message: "getWidth", page: page}, function (response) {
+    if (response.success) {
+        changeWidth(response.width)
+    }
 })
 
-console.log("监听器启动")
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    console.log("got" + request.width)
     changeWidth(request.width)
 })

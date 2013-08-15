@@ -1,8 +1,8 @@
-function sendChange(width) {
-    //发给backgroud.js
-    chrome.runtime.sendMessage({message: "setWidth", width: width}, function response() {
+function sendChange(page, width) {
+    //发给background页
+    chrome.runtime.sendMessage({message: "setWidth", page: page, width: width}, function response() {
     })
-    //发给content page
+    //发给content页
     chrome.tabs.query({
         active: true,
         currentWindow: true
@@ -13,16 +13,34 @@ function sendChange(width) {
     })
 }
 
+function startWith(string, sub) {
+    return (string.lastIndexOf(sub, 0) === 0)
+}
 //-----------------全局变量-------------------
 var range = document.getElementsByName("range")[0]
-var width_div = document.getElementById("width")
+var pages = ["http://www.renren.com", "http://weibo.com"]
 
 //----------------main----------------------
-chrome.runtime.sendMessage({message: "getWidth"}, function (response) {
-    range.value = response.width
-    width_div.textContent = range.value
-    range.onchange = function (e) {
-        width.textContent = this.value
-        sendChange(this.value)
+
+chrome.tabs.query({
+        active: true,
+        currentWindow: true
+    }, function (tabs) {
+        var url = tabs[0].url
+        for (var i = 0; i < pages.length; i++) {
+            var page = pages[i]
+            if (startWith(url, page)) {
+                chrome.runtime.sendMessage({message: "getWidth", page: page}, function (response) {
+                    if (response.success) {
+                        range.value=response.width
+                    }
+                })
+                range.onchange = function (e) {
+                    sendChange(page, range.value)
+                }
+            }
+        }
     }
-});
+)
+
+

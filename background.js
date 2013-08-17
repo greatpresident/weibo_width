@@ -1,12 +1,12 @@
 //--------------global variables---------------
 var pages_width = {}
-var pages = ["http://www.renren.com", "http://weibo.com"]
+var pages = ["http://www.renren.com", "http://weibo.com","http://blog.renren.com"]
 var DEFAULT_WIDTH=800
 
 //----------------functions------------------
 function getWidth(page) {
     if (pages_width[page])return pages_width[page]
-    return null
+    return null //表示不支持该网页变宽
 }
 
 

@@ -1,7 +1,7 @@
 {
     "name": "人人、新浪微博页宽调节器",
     "description": "感觉宽屏浪费了？(其中微博专为扩展“微博急简”优化)",
-    "version": "2.0",
+    "version": "2.1",
     "manifest_version": 2,
     "browser_action": {
         "default_icon": "kuan.png",
@@ -12,7 +12,7 @@
         "48": "kuan.png"
     },
     "permissions": [
-        "tabs", "http://weibo.com/*", "http://www.renren.com/*","storage"
+        "tabs", "storage","http://weibo.com/*", "http://www.renren.com/*","http://blog.renren.com/*"
 
     ],
     "background": {
@@ -20,7 +20,7 @@
     },
     "content_scripts": [
         {
-            "matches": ["http://weibo.com/*","http://www.renren.com/*"],
+            "matches": ["http://weibo.com/*","http://www.renren.com/*","http://blog.renren.com/*"],
             "js": ["content.js"]
         }
     ]

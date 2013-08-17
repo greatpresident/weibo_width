@@ -1,3 +1,9 @@
+//-----------------全局变量-------------------
+var range = document.getElementsByName("range")[0]
+var pages = ["http://www.renren.com", "http://weibo.com","http://blog.renren.com"]
+
+
+//----------------functions------------------
 function sendChange(page, width) {
     //发给background页
     chrome.runtime.sendMessage({message: "setWidth", page: page, width: width}, function response() {
@@ -16,9 +22,7 @@ function sendChange(page, width) {
 function startWith(string, sub) {
     return (string.lastIndexOf(sub, 0) === 0)
 }
-//-----------------全局变量-------------------
-var range = document.getElementsByName("range")[0]
-var pages = ["http://www.renren.com", "http://weibo.com"]
+
 
 //----------------main----------------------
 

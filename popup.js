@@ -42,6 +42,7 @@ chrome.tabs.query({
                 range.onchange = function (e) {
                     sendChange(page, range.value)
                 }
+                break
             }
         }
     }

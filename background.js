@@ -24,16 +24,17 @@ chrome.storage.local.get("pages_width", function (result) {
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-        console.log("来家伙了")
+        console.log("来家伙了!")
         switch (request.message) {
             case "getWidth":
                 var width = getWidth(request.page)
                 if (width) sendResponse({success: true, width: width})
                 else sendResponse({success: false})
                 break
-            case "setWidth":
+            case "setWidth":         
                 var width = request.width
                 pages_width[request.page]=width
+                console.log("页面："+request.page+"，宽度："+width)
                 chrome.storage.local.set({pages_width: pages_width}, function () {
                 })
                 break

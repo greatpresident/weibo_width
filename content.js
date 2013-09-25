@@ -14,6 +14,15 @@ switch (page) {
         w_main = document.getElementsByClassName("W_main")[0]
         plc_main = document.getElementById("plc_main")
         scrollToTop = document.getElementById('base_scrollToTop')
+        var divs=document.getElementsByTagName("div")
+        //屏蔽新浪的“推广”微博（每天第一次登录冒出来的陌生博主的广告微博）
+        for (var i in divs){
+            if (divs[i].hasAttribute("feedtype")){
+                divs[i].style.display="none"
+                console.log("屏蔽了一条广告微博")
+                break
+            }
+         }
         break
     case "http://blog.renren.com":
         fullPage = document.getElementsByClassName("full-page clearfix ")[0]

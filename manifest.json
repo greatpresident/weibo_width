@@ -1,7 +1,7 @@
 {
     "name": "人人、新浪微博页宽调节器",
     "description": "感觉宽屏浪费了？(其中微博专为扩展“微博急简”优化)",
-    "version": "2.2",
+    "version": "2.3",
     "manifest_version": 2,
     "browser_action": {
         "default_icon": "kuan.png",
